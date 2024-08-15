@@ -79,6 +79,7 @@ plugins=(
   )
 
 source $ZSH/oh-my-zsh.sh
+source <(fzf --zsh)
 fpath=($ZSH/custom/plugins/zsh-completions/src $fpath)
 # User configuration
 
@@ -110,5 +111,7 @@ alias config="cd ~/.config"
 alias dots="cd ~/dotfiles"
 alias documents="cd ~/Documents"
 alias downloads="cd ~/Downloads"
+alias minecraft="source ~/scripts/minecraft.sh"
+alias inv='nvim $(fzf -m --preview="bat --color=always {}")'
 pfetch
 
