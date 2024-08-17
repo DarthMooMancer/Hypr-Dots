@@ -1,13 +1,14 @@
 #i3 config file (v4)
 set $mod Mod4
-font pango:MesloLGS NF 8
+#font pango:MesloLGS NF 8
+font pango: Code New Roman 8
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # Gaps config
-for_window [class="^.*"] border pixel 0
-gaps inner 5
-gaps outer -5
+for_window [class="^.*"] border pixel 2
+gaps inner 0
+hide_edge_borders both
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% 
@@ -118,9 +119,9 @@ client.focused_inactive #4c566a #81a1c1 #2e3440 #81a1c1
 client.placeholder      #4c566a #2e3440 #4c566a #81a1c1
 #client.urgent           #4c566a #BF616A #d8dee9 #81a1c1
 
-client.background       #2e3440
+client.background       #1e1e2e
 
-exec feh --bg-fill ~/Wallpapers/My-Serious-Face.jpg
+exec feh --bg-fill ~/Wallpapers/DimItalics.jpg
 exec ~/.config/polybar/launch.sh
 exec_always autotiling
 exec picom -b --config ~/.config/picom/picom.conf
