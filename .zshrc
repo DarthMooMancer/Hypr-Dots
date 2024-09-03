@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -9,9 +16,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 #ZSH_THEME="eastwood"
-# ZSH_THEME="intheloop"
-ZSH_THEME="arrow"
-
+#ZSH_THEME="intheloop"
+#ZSH_THEME="arrow"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -80,6 +87,9 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 source <(fzf --zsh)
+source $HOME/scripts/venv.sh
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+source /usr/share/zsh/share/antigen.zsh
 fpath=($ZSH/custom/plugins/zsh-completions/src $fpath)
 # User configuration
 
@@ -103,6 +113,17 @@ fpath=($ZSH/custom/plugins/zsh-completions/src $fpath)
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
+nvip() {
+  # Assumes all configs exist in directories named ~/.config/nvim-*
+  local config=$(fd --max-depth 1 --glob 'nvim*' ~/.config | fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
+ 
+  # If I exit fzf without selecting a config, don't open Neovim
+  [[ -z $config ]] && echo "No config selected" && return
+ 
+  # Open Neovim with the selected config
+  NVIM_APPNAME=$(basename $config) nvim $@
+}
+
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -113,5 +134,13 @@ alias documents="cd ~/Documents"
 alias downloads="cd ~/Downloads"
 alias minecraft="source ~/scripts/minecraft.sh"
 alias inv='nvim $(fzf -m --preview="bat --color=always {}")'
-pfetch
+alias fehfull="feh -pFZ"
+#pfetch
+echo "    _             _     _     _                  
+   / \   _ __ ___| |__ | |   (_)_ __  _   ___  __
+  / _ \ | '__/ __| '_ \| |   | | '_ \| | | \ \/ /
+ / ___ \| | | (__| | | | |___| | | | | |_| |>  < 
+/_/   \_\_|  \___|_| |_|_____|_|_| |_|\__,_/_/\_\ "
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

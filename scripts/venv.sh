@@ -1,2 +1,2 @@
 #!/bin/bash
-source ~/Documents/GitHub/Coding2/.venv/bin/activate
+source $HOME/.local/share/nvim/mason/packages/black/venv/bin/activate
