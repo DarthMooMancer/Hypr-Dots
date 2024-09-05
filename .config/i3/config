@@ -69,7 +69,26 @@ bindsym $mod+Shift+4 move container to workspace number $ws4
 bindsym $mod+Shift+5 move container to workspace number $ws5
 
 bar {
-       status_command i3blocks -c ~/.config/i3/i3blocks.conf
+   position top 
+   mode dock
+   tray_output primary
+   tray_padding 5
+   font pango:JetBrainsMono Nerd 10
+   separator_symbol "  "
+   strip_workspace_numbers no
+   padding 0px 5px 2px 0px 
+   status_command i3status -c ~/.config/i3/i3status.conf
+   colors {
+     background #282828
+     statusline #ebdbb2
+     separator  #83a598
+
+     focused_workspace   #282828 #98971a #3c3836
+     active_workspace    #282828 #98971a #8FBCBB
+     inactive_workspace  #282828 #98971a #fbf1c7
+     urgent_workspace    #282828 #98971a #BF616A
+     binding_mode        #282828 #98971a #BF616A
+   }
 }
 
 # reload the configuration file
@@ -94,5 +113,6 @@ client.background       #1e1e2e
 exec feh --bg-fill ~/Wallpapers/DimItalics.jpg
 #exec ~/.config/i3/scripts/mouse.sh
 #exec ~/.config/i3/scripts/monitor.sh
+#exec ~/.config/polybar/launch.sh
 exec_always autotiling
 

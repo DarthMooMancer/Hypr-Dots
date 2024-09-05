@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Left click
+if [[ "${BLOCK_BUTTON}" -eq 1 ]]; then
+   gsimplecal
+fi
+
+current_time=`date +%H`
+
+if [ $current_time -ge 18 ]
+then
+  icon=""
+  color="#b58900"
+elif [ $current_time -ge 12 ]
+then
+  icon=""
+  color="#859900"
+else
+  icon=""
+  color="#268bd2"
+fi
+
+echo "<span color=\"$color\">$icon</span> $(date '+%H:%M:%S  %d-%m-%Y wk%V')"
+echo ""
+echo ""
