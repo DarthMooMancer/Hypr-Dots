@@ -12,6 +12,7 @@
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias code="cd ~/Documents/GitHub/Coding2/DungeonProject/ && nvim"
+alias fehfull="feh -pF"
 #PS1='[\u@\h \W]\$ '
 RED='\e[1;31m'
 GREEN='\e[1;32m'

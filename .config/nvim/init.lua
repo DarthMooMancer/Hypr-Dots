@@ -7,7 +7,9 @@ require("trouble").setup{}
 require("colorizer").setup{}
 require("nvim-autopairs").setup{}
 
-require('nvim_comment').setup()
+require('nvim_comment').setup{}
+-- require('cmp-path').setup{}
+-- require('cmp-buffer').setup{}
 --require("config.gruvbox")
 --require("config.base16")
 vim.opt.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
