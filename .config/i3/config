@@ -22,10 +22,10 @@ floating_modifier $mod
 
 tiling_drag modifier titlebar
 
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec st
 bindsym $mod+q kill
 bindsym $mod+Shift+p exec ~/.config/rofi/powermenu/type-2/powermenu.sh
-bindsym $mod+p exec ~/.config/rofi/launchers/type-2/launcher.sh
+bindsym $mod+p exec ~/.config/rofi/launchers/type-1/launcher.sh
 
 # Change the Focused Window
 bindsym $mod+h focus left
@@ -110,9 +110,8 @@ client.placeholder      #4c566a #2e3440 #4c566a #98971a
 client.urgent           #4c566a #BF616A #d8dee9
 
 client.background       #1e1e2e
-exec feh --bg-fill ~/Wallpapers/DimItalics.jpg
+exec feh --bg-fill ~/Wallpapers/gruvbox-color.png
 #exec ~/.config/i3/scripts/mouse.sh
 #exec ~/.config/i3/scripts/monitor.sh
-#exec ~/.config/polybar/launch.sh
 exec_always autotiling
 

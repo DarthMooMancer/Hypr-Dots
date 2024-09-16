@@ -12,7 +12,7 @@
 
 # Current Theme
 dir="$HOME/.config/rofi/powermenu/type-2"
-theme='style-8'
+theme='style-1' # Main style is 8 -- Never use 3, 6, 7, 10 
 
 # CMDs
 uptime="`uptime -p | sed -e 's/up //g'`"
