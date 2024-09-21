@@ -1,0 +1,117 @@
+From ae0f69b86a4a4d1647a3bb049e05d31d9aa29d40 Mon Sep 17 00:00:00 2001
+From: Christopher Drelich <cd@cdrakka.com>
+Date: Thu, 24 May 2018 21:12:22 -0400
+Subject: [PATCH] Makes win floating, and moves it into one of 9 screen
+ positions.
+
+---
+ config.def.h |  9 +++++++++
+ dwm.1        |  5 +++++
+ dwm.c        | 34 +++++++++++++++++++++++++++++++++-
+ 3 files changed, 47 insertions(+), 1 deletion(-)
+
+diff --git a/config.def.h b/config.def.h
+index a9ac303..1087b9e 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -84,6 +84,15 @@ static Key keys[] = {
+ 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+ 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
+ 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
++	{ MODKEY,                       XK_q,      moveplace,      {.ui = WIN_NW }},
++	{ MODKEY,                       XK_w,      moveplace,      {.ui = WIN_N  }},
++	{ MODKEY,                       XK_e,      moveplace,      {.ui = WIN_NE }},
++	{ MODKEY,                       XK_a,      moveplace,      {.ui = WIN_W  }},
++	{ MODKEY,                       XK_s,      moveplace,      {.ui = WIN_C  }},
++	{ MODKEY,                       XK_d,      moveplace,      {.ui = WIN_E  }},
++	{ MODKEY,                       XK_z,      moveplace,      {.ui = WIN_SW }},
++	{ MODKEY,                       XK_x,      moveplace,      {.ui = WIN_S  }},
++	{ MODKEY,                       XK_c,      moveplace,      {.ui = WIN_SE }},
+ 	TAGKEYS(                        XK_1,                      0)
+ 	TAGKEYS(                        XK_2,                      1)
+ 	TAGKEYS(                        XK_3,                      2)
+diff --git a/dwm.1 b/dwm.1
+index 13b3729..8df7d9f 100644
+--- a/dwm.1
++++ b/dwm.1
+@@ -131,6 +131,11 @@ Apply all tags to focused window.
+ .B Mod1\-Control\-Shift\-[1..n]
+ Add/remove nth tag to/from focused window.
+ .TP
++.B Mod1\-[q,w,e,a,s,d,z,x,c]
++Makes the window floating, 1/3rd height and 1/3rd width of screen, and puts it in a
++position based on the key-pressed. The position on screen is equivalent to the
++position of those keys relative to each other, with "s" being the center.
++.TP
+ .B Mod1\-[1..n]
+ View all windows with nth tag.
+ .TP
+diff --git a/dwm.c b/dwm.c
+index bb95e26..480f59d 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -66,6 +66,7 @@ enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
+ enum { WMProtocols, WMDelete, WMState, WMTakeFocus, WMLast }; /* default atoms */
+ enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
+        ClkClientWin, ClkRootWin, ClkLast }; /* clicks */
++enum { WIN_NW, WIN_N, WIN_NE, WIN_W, WIN_C, WIN_E, WIN_SW, WIN_S, WIN_SE }; /* coordinates for moveplace */
+ 
+ typedef union {
+ 	int i;
+@@ -92,7 +93,7 @@ struct Client {
+ 	int basew, baseh, incw, inch, maxw, maxh, minw, minh;
+ 	int bw, oldbw;
+ 	unsigned int tags;
+-	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
++	int isfixed, isfloating, wasfloating, isurgent, neverfocus, oldstate, isfullscreen;
+ 	Client *next;
+ 	Client *snext;
+ 	Monitor *mon;
+@@ -183,6 +184,7 @@ static void maprequest(XEvent *e);
+ static void monocle(Monitor *m);
+ static void motionnotify(XEvent *e);
+ static void movemouse(const Arg *arg);
++static void moveplace(const Arg *arg);
+ static Client *nexttiled(Client *c);
+ static void pop(Client *);
+ static void propertynotify(XEvent *e);
+@@ -1192,6 +1194,36 @@ movemouse(const Arg *arg)
+ 	}
+ }
+ 
++void
++moveplace(const Arg *arg)
++{
++	Client *c;
++	int nh, nw, nx, ny;
++	c = selmon->sel;
++	if (!c || (arg->ui >= 9))
++		 return;
++	if (selmon->lt[selmon->sellt]->arrange && !c->isfloating)
++		togglefloating(NULL);
++	nh = (selmon->wh / 3) - (c->bw * 2);
++	nw = (selmon->ww / 3) - (c->bw * 2);
++	nx = (arg->ui % 3) -1;
++	ny = (arg->ui / 3) -1;
++	if (nx < 0)
++		nx = selmon->wx;
++	else if(nx > 0)
++		nx = selmon->wx + selmon->ww - nw - c->bw*2;
++	else
++		nx = selmon->wx + selmon->ww/2 - nw/2 - c->bw;
++	if (ny <0)
++		ny = selmon->wy;
++	else if(ny > 0)
++		ny = selmon->wy + selmon->wh - nh - c->bw*2;
++	else
++		ny = selmon->wy + selmon->wh/2 - nh/2 - c->bw;
++	resize(c, nx, ny, nw, nh, True);
++	XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, nw/2, nh/2);
++}
++
+ Client *
+ nexttiled(Client *c)
+ {
+-- 
+2.7.4
+
