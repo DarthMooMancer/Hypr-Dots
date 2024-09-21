@@ -33,11 +33,8 @@ static const Rule rules[] = {
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    titl       tags mask     isfloating   monitor */	
-	{ "Thorium-browser",  "thorium-browser", NULL,       1 << 1,       0 ,           -1 },
 	{ "firefox",					"Navigator",			 NULL,       1 << 1,       0,            -1 },
 	{ "st-256color",			"st-256color",		 NULL,			 1,						 0,            -1 },
-	{ "Apple Music",			"apple music",		 NULL,			 1 << 2,			 0,						 -1 },
-	{ "mpv",							"gl",							 NULL,			 1 << 3,			 0,						 -1 },
 };
 
 /* layout(s) */
