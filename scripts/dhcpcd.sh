@@ -1,1 +1,0 @@
-sudo dhcpcd wlan0

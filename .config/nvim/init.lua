@@ -1,17 +1,16 @@
 vim.opt.termguicolors = true
 require("config.lazy")
 require("config.keymap")
+-- require("toggleterm").setup{
+-- 	size = 40,
+-- 	start_in_insert = true,
+-- 	direction = 'vertical',
+-- }
 require("toggleterm").setup{}
-require("barbecue.ui").toggle(true)
 require("trouble").setup{}
 require("colorizer").setup{}
 require("nvim-autopairs").setup{}
-
 require('nvim_comment').setup{}
--- require('cmp-path').setup{}
--- require('cmp-buffer').setup{}
---require("config.gruvbox")
---require("config.base16")
 vim.opt.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 vim.opt.wrap = false
 --vim.opt.signcolumn = "yes"
@@ -23,11 +22,17 @@ vim.opt.foldlevel = 20
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
---vim.cmd("set expandtab")
-vim.cmd("set tabstop=2")
-vim.cmd("set softtabstop=2")
-vim.cmd("set shiftwidth=2")
-vim.cmd("set relativenumber")
-vim.cmd("set number")
---vim.cmd("set termguicolors")
+local options = {
+	number = true,
+	relativenumber = true,
+	shiftwidth = 2,
+	softtabstop = 2,
+	tabstop = 2
+}
+
+for k, v in pairs(options) do
+  vim.opt[k] = v
+end
+
+vim.cmd "colorscheme gruvbox-material"
 vim.g.mapleader = " "

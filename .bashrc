@@ -7,18 +7,12 @@
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias code="cd ~/Documents/GitHub/Coding2/DungeonProject/ && nvim"
-alias comp="sudo rm -rf config.h && make && sudo make install"
-
-RED='\e[1;31m'
-GREEN='\e[1;32m'
-YELLOW='\e[1;33m'
-BLUE='\e[1;34m'
-PURPLE='\e[1;35m'
-CYAN='\e[1;37m'
-
-CLOSE='\e[0m' # No Color
-
-PS1="\r$YELLOW[\w]$CLOSE$GREEN[\d]$RED[\A]$CLOSE$BLUE\n& $CLOSE"
+alias code="cd ~/Documents/Coding2/DungeonProject/ && nvim"
+alias comp="doas rm -rf config.h && make && doas make install"
+alias emerge-update-world="doas emerge -avtDUu @world"
+alias brightness-enable="doas chown andrew:andrew /sys/class/backlight/amdgpu_bl0/brightness"
+alias emerge-cleanup="doas sh ~/scripts/emerge-cleanup.sh"
+alias cpp="g++ -o run main.cpp && ./run"
+PS1='\r\e[1;31m\][\[\e[1;33m\]\u\[\e[1;32m\]@\[\e[1;34m\]\h \[\e[1;35m\]\w\[\e[1;31m\]]\[\e[1;00m\] \$\[\e[0;00m\] '
 source ~/scripts/venv.sh
-
+complete -F _root_command doas

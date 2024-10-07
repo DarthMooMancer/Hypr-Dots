@@ -17,7 +17,7 @@ vim.keymap.set("n", "<leader>sh", "<C-w><5")    -- make split windows width smal
 
 -- Terminal
 vim.keymap.set('t', '<C-space>', "<C-\\><C-n><C-w>h", { silent = true })
-vim.keymap.set('n', '<leader>te', ":ToggleTerm direction=float<CR>", { silent = true })
+vim.keymap.set('n', '<Leader>te', ":ToggleTerm<CR>", { silent = true })
 
 -- Fold
 vim.keymap.set('n', '<leader>fc', ":foldclose<CR>", { silent = true })
