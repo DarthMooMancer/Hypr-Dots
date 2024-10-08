@@ -1,15 +1,15 @@
 /* See LICENSE file for copyright and license details. */
 
-#include "/home/andrew/.config/suckless/dwm/themes/gruvbox.h"
+#include "/home/andrew/.config/suckless/dwm-bak/themes/gruvbox.h"
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int gappx			= 5;				/* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *barlayout        = "tl|s";
+static const char *barlayout        = "t|";
 static const char *fonts[]          = { "JetBrainsMono NF Medium:size=12" };
-static const char dmenufont[]       = "JetBrainsMono NF Medium:size=12";
+static const char dmenufont[]       = "Firacode NF Med:size=12";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { foreground, background, win_border },
