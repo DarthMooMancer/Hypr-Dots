@@ -1,100 +1,89 @@
 -- LSP Support
 return {
-  -- LSP Configuration
-  -- https://github.com/neovim/nvim-lspconfig
-  'neovim/nvim-lspconfig',
-  event = 'VeryLazy',
-  dependencies = {
-    -- LSP Management
-    -- https://github.com/williamboman/mason.nvim
-    { 'williamboman/mason.nvim' },
-    -- https://github.com/williamboman/mason-lspconfig.nvim
-    { 'williamboman/mason-lspconfig.nvim' },
-
---		{"WhoIsSethDaniel/mason-tool-installer.nvim"},
-    -- Useful status updates for LSP
-    -- https://github.com/j-hui/fidget.nvim
-    { 'j-hui/fidget.nvim', opts = {} },
-
-    -- Additional lua configuration, makes nvim stuff amazing!
-    -- https://github.com/folke/neodev.nvim
-    { 'folke/neodev.nvim', opts = {} },
-  },
-  config = function ()
---		local mason_tool_installer = require("mason-tool-installer")
-    require('mason').setup({
-			ui = {
-				icons = {
-					package_installed = "✓",
-					package_pending = "➜",
-					package_uninstalled = "✗",
+	{
+		-- LSP Configuration
+		-- https://github.com/neovim/nvim-lspconfig
+		'neovim/nvim-lspconfig',
+		event = 'VeryLazy',
+		config = function ()
+		--local mason_tool_installer = require("mason-tool-installer")
+			require('mason').setup({
+				ui = {
+					icons = {
+						package_installed = "✓",
+						package_pending = "➜",
+						package_uninstalled = "✗",
+					},
 				},
-			},
-    })
---		mason_tool_installer.setup({
---    ensure_installed = {
---        "prettier", -- prettier formatter
---        "stylua", -- lua formatter
---       "isort", -- python formatter
---        "black", -- python formatter
---        "pylint", -- python linter
---        "eslint_d", -- js linter
---      },
---    })
-    require('mason-lspconfig').setup({
-      -- Install these LSPs automatically
-      ensure_installed = {
-        -- 'bashls', -- requires npm to be installed
-        -- 'cssls', -- requires npm to be installed
-        -- 'html', -- requires npm to be installed
-        'lua_ls',
-        -- 'jsonls', -- requires npm to be installed
-        'lemminx',
-        'marksman',
-        'quick_lint_js',
-        'pyright',
-        -- 'tsserver', -- requires npm to be installed
-        -- 'yamlls', -- requires npm to be installed
-      }
-    })
+			})
+			require('mason-lspconfig').setup({
 
-    local lspconfig = require('lspconfig')
-    local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-    local lsp_attach = function(client, bufnr)
-      -- Create your keybindings here...
-    end
+				ensure_installed = {
+					'lua_ls',
+					'pyright',
+				}
+			})
 
-    -- Call setup on each LSP server
-    require('mason-lspconfig').setup_handlers({
-      function(server_name)
-        lspconfig[server_name].setup({
-          on_attach = lsp_attach,
-          capabilities = lsp_capabilities,
-        })
-      end
-    })
+			local lspconfig = require('lspconfig')
+			local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+			local lsp_attach = function(client, bufnr)
+				-- Create your keybindings here...
+			end
 
-    -- Lua LSP settings
-    lspconfig.lua_ls.setup {
-      settings = {
-        Lua = {
-          diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = {'vim'},
-          },
-        },
-      },
-    }
+			-- Call setup on each LSP server
+			require('mason-lspconfig').setup_handlers({
+				function(server_name)
+					lspconfig[server_name].setup({
+						on_attach = lsp_attach,
+						capabilities = lsp_capabilities,
+					})
+				end
+			})
 
-    -- Globally configure all LSP floating preview popups (like hover, signature help, etc)
-    --local open_floating_preview = vim.lsp.util.open_floating_preview
-    function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-      opts = opts or {}
-      opts.border = opts.border or "rounded" -- Set border to rounded
-      return vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-    end
+			-- Lua LSP settings
+			lspconfig.lua_ls.setup {
+				settings = {
+					Lua = {
+						diagnostics = {
+							-- Get the language server to recognize the `vim` global
+							globals = {'vim'},
+						},
+					},
+				},
+			}
 
-  end
+			-- Globally configure all LSP floating preview popups (like hover, signature help, etc)
+			--local open_floating_preview = vim.lsp.util.open_floating_preview
+			function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+				opts = opts or {}
+				opts.border = opts.border or "rounded" -- Set border to rounded
+				return vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+			end
+
+		end
+	},
+	{	"mfussenegger/nvim-lint",
+		event = {
+			"BufReadPre",
+			"BufNewFile",
+		},
+		config = function()
+			local lint = require("lint")
+
+			lint.linters_by_ft = {
+				python = { "pylint" },
+			}
+
+			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+
+			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+				group = lint_augroup,
+				callback = function()
+					lint.try_lint()
+				end,
+			})
+		end,
+	},
 }
 
 

@@ -1,19 +1,12 @@
 vim.opt.termguicolors = true
 require("config.lazy")
 require("config.keymap")
--- require("toggleterm").setup{
--- 	size = 40,
--- 	start_in_insert = true,
--- 	direction = 'vertical',
--- }
-require("toggleterm").setup{}
-require("trouble").setup{}
 require("colorizer").setup{}
 require("nvim-autopairs").setup{}
-require('nvim_comment').setup{}
+
 vim.opt.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 vim.opt.wrap = false
---vim.opt.signcolumn = "yes"
+
 vim.diagnostic.config {
   float = { border = "rounded" }, -- add border to diagnostic popups
 }
@@ -34,5 +27,5 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
-vim.cmd "colorscheme gruvbox-material"
+vim.cmd "colorscheme catppuccin-frappe"
 vim.g.mapleader = " "

@@ -1,3 +1,0 @@
-return {
-	"rafamadriz/themes.nvim"
-}
