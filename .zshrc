@@ -114,7 +114,9 @@ alias code="cd ~/Docs/Coding2/DungeonProject/ && nvim"
 alias comp="sudo rm -rf config.h && make && sudo make install"
 alias cpp="g++ -o run main.cpp && ./run"
 alias build="cargo build && cargo run"
-source ~/scripts/venv.sh
+alias hyprconfig="cd ~/.config/hypr/"
+alias neoconfig="cd ~/.config/nvim"
+source $HOME/.local/share/nvim/mason/packages/black/venv/bin/activate
 nitch
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

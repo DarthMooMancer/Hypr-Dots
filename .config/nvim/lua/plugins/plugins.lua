@@ -7,20 +7,6 @@ return {
   { 'nvim-lua/plenary.nvim' },
 	{ 'williamboman/mason.nvim' },
   { 'williamboman/mason-lspconfig.nvim' },
-  { 'j-hui/fidget.nvim' },
-  { 'folke/neodev.nvim' },
-
-	-- Main Plugins
-	{ "lukas-reineke/indent-blankline.nvim",
-		event = 'VeryLazy',
-		main = "ibl",
-		opts = {
-			enabled = true,
-			indent = {
-				char = '|',
-			},
-		},
-	},
 	{ 'nvim-lualine/lualine.nvim',
 		opts = {
 			options = {
