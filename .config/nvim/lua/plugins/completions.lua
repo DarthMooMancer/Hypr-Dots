@@ -1,4 +1,15 @@
 return {
+	{	'windwp/nvim-autopairs',
+		event = "InsertEnter",
+		opts = {
+			check_ts = true,
+			ts_config = {
+				-- lua = { "string" }, -- don't add pairs in lua string treesitter nodes
+				javascript = { "template_string" }, -- don't add pairs in javascript template_string
+			}
+		}
+	},
+	{ 'kylechui/nvim-surround', version = "*", event = "VeryLazy" },
   {
     "hrsh7th/cmp-nvim-lsp",
 		dependencies = {
@@ -10,7 +21,7 @@ return {
     "L3MON4D3/LuaSnip",
     dependencies = {
       "saadparwaiz1/cmp_luasnip",
-      "rafamadriz/friendly-snippets",
+      "rafamadriz/friendly-snippets"
     },
   },
   {
@@ -38,9 +49,10 @@ return {
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "luasnip" }, -- For luasnip users.
+          { name = "luasnip" },
         }, {
           { name = "buffer" },
+					{ name = "path" },
         }),
       })
     end,

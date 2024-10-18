@@ -1,7 +1,11 @@
 return {
 	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 	{ "numToStr/Comment.nvim" },
-	{ "norcalli/nvim-colorizer.lua" },
+	{ "norcalli/nvim-colorizer.lua",
+		config = function()
+			vim.keymap.set("n", "<Leader>ct", ":ColorizerToggle<CR>", {})
+		end
+	},
 	-- Dependencies For Plugins
 	{	"nvim-tree/nvim-web-devicons" },
   { 'nvim-lua/plenary.nvim' },
