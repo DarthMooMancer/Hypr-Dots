@@ -1,0 +1,5 @@
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("n", "<C-n>", vim.cmd.Ex)
+vim.keymap.set('n', '<C-p>', ":Telescope find_files<CR>")
+vim.keymap.set('n', "<Leader>bd", ":bd<CR>")

@@ -29,8 +29,8 @@ style = "Medium"
 # dynamic_title = true
 # option_as_alt = "Both"
 dynamic_padding = true
-# opacity = 0.8
-# blur = true
+opacity = 0.6
+blur = true
 
 [window.padding]
 x = 5
