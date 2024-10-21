@@ -25,6 +25,21 @@ style = "Bold Italic"
 family = "FiraCode Nerd Font"
 style = "Medium"
 
+# [font.bold]
+# family = "JetBrainsMono Nerd Font"
+# style = "Bold"
+#
+# [font.bold_italic]
+# family = "JetBrainsMono Nerd Font"
+# style = "Bold Italic"
+#
+# [font.italic]
+# family = "JetBrainsMono Nerd Font"
+# style = "Bold Italic"
+#
+# [font.normal]
+# family = "JetBrainsMono Nerd Font"
+# style = "Medium"
 [window]
 # dynamic_title = true
 # option_as_alt = "Both"
