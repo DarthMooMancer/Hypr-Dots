@@ -8,6 +8,7 @@ return {
 		end
 	},
 	"numToStr/Comment.nvim",
+	"norcalli/nvim-colorizer.lua",
 	{ "windwp/nvim-autopairs",
 		event = "InsertEnter",
 		opts = {
