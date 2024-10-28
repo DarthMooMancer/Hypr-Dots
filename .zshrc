@@ -1,30 +1,65 @@
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(git fast-syntax-highlighting zsh-autosuggestions fzf fzf-tab)
+HISTFILE=~/.zsh_history
+HISTSIZE=150
+SAVEHIST=1000
 
+export PLUGINS="$HOME/.config/zsh/"
+export VIRTUAL_ENV_DISABLE_PROMPT=true
+export PATH=$PATH:~/lua-language-server/bin/
+export XDG_DESKTOP_PORTAL_BACKEND=xdg-desktop-portal-hyprland
+export TERM=xterm
 source <(fzf --zsh)
-source $ZSH/oh-my-zsh.sh
 
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
-fi
+autoload -U compinit; compinit
+source $PLUGINS/fzf-tab/fzf-tab.plugin.zsh
+source $PLUGINS/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $PLUGINS/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source $HOME/.config/env/bin/activate
+
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey "^[[3~" delete-char
+bindkey "^[[5~" up-line
+bindkey "^[[6~" down-line
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias code="cd ~/Docs/Coding2/DungeonProject/ && nvim"
-alias cpp="g++ -o run main.cpp && ./run"
 alias build="cargo build && cargo run"
-alias hyprconfig="cd ~/.config/hypr/"
 alias neoconfig="cd ~/.config/nvim"
 
-source $HOME/.local/share/nvim/mason/packages/black/venv/bin/activate
-nitch
+autoload -Uz promptinit
+promptinit
+prompt pure
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Use ~~ as the trigger sequence instead of the default **
+export FZF_COMPLETION_TRIGGER='~~'
 
-# To customize prompt, run `p10k configure` or edit ~/dotfiles/.p10k.zsh.
-[[ ! -f ~/dotfiles/.p10k.zsh ]] || source ~/dotfiles/.p10k.zsh
+# Options to fzf command
+export FZF_COMPLETION_OPTS='--border --info=inline'
+
+# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
+# Advanced customization of fzf options via _fzf_comprun function
+# - The first argument to the function is the name of the command.
+# - You should make sure to pass the rest of the arguments to fzf.
+_fzf_comprun() {
+  local command=$1
+  shift
+
+  case "$command" in
+    cd)           fzf --preview 'tree -C {} | head -200'   "$@" ;;
+    export|unset) fzf --preview "eval 'echo \$'{}"         "$@" ;;
+    ssh)          fzf --preview 'dig {}'                   "$@" ;;
+    *)            fzf --preview 'bat -n --color=always {}' "$@" ;;
+  esac
+}
