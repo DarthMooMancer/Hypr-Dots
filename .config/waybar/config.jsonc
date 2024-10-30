@@ -10,13 +10,12 @@
     "modules-left": ["hyprland/workspaces", "custom/sep"],
     //"modules-center": [],
     "modules-right": [
+        "tray",
         "custom/sep",
         "pulseaudio",
 				"battery",
         "clock#simpleclock",
         "clock#date",
-        "custom/sep",
-        "tray",
     ],
 
     "battery": {
