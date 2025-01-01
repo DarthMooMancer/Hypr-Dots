@@ -7,15 +7,18 @@
     "passthrough": false,
     "fixed-center": true,
 
-    "modules-left": ["hyprland/workspaces", "custom/sep"],
-    //"modules-center": [],
+    "modules-left": [
+      "hyprland/workspaces", 
+    ],
+
+    "modules-center": [
+      "clock#date",
+    ],
+
     "modules-right": [
-        "tray",
-        "custom/sep",
         "pulseaudio",
 				"battery",
         "clock#simpleclock",
-        "clock#date",
     ],
 
     "battery": {

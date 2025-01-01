@@ -1,8 +1,7 @@
-@import "frappe.css";
+@import "macchiato.css";
 * {
     min-height: 0;
-    /*font-family: JetBrainsMono Nerd Font;*/
-    font-family: FiraCode NF;
+    font-family: JetBrainsMono Nerd Font;
     font-size: 13px;
     font-weight: 500;
 }
@@ -11,9 +10,9 @@ window#waybar {
     transition-property: background-color;
     transition-duration: 0.5s;
     /* background-color: #1e1e2e; */
-    /* background-color: #181825; */
+    background-color: @base; 
     /*background-color: rgba(24, 24, 37, 0.8);*/
-    background-color: rgba(30, 32, 48, 0.8);
+    /*background-color: rgba(30, 32, 48, 0.0);*/
 }
 
 window#waybar.hidden {
@@ -32,15 +31,15 @@ window#waybar.hidden {
     min-height: 0;
     margin: 4px 4px;
     border-radius: 8px;
-    background-color: #181825;
+    background-color: @crust;
     color: @lavender;
 }
 
 #workspaces button:hover {
     box-shadow: inherit;
     text-shadow: inherit;
-    color: #1e1e2e;
-    background-color: #cdd6f4;
+    color: @mantle;
+    background-color: @text;
 }
 
 #workspaces button.active {
@@ -65,12 +64,12 @@ window#waybar.hidden {
     padding: 2px 10px;
     border-radius: 8px;
     margin: 4px 4px;
-    background-color: #181825;
+    background-color: @crust;
 }
 
 #custom-sep {
     padding: 0px;
-    color: #585b70;
+    color: @surface1;
 }
 
 window#waybar.empty #window {
@@ -114,7 +113,7 @@ window#waybar.empty #window {
 @keyframes blink {
     to {
         background-color: @red;
-        color: #181825;
+        color: @mantle;
     }
 }
 
