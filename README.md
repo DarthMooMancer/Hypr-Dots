@@ -1,5 +1,4 @@
 # Hyprland Dotfiles
-----------
 
 # Installation
 
